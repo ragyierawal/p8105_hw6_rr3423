@@ -27,11 +27,59 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## PROBLEM 1 
 
-### Loading and cleaning data for regression analysis 
+### Loading data for regression analysis 
 
 ```{r import_data}
+# loading data
 birthweight_data = read_csv("data/birthweight.csv")
 ```
+
+### Checking for missing data by identifying any NA values in columns 
+
+```{r check_NA}
+# checking for NA values 
+birthweight_data %>% 
+  summarise(across(everything(), ~ sum(is.na(.))))
+```
+
+There are no NA values, thus no missing data in the birthweight dataset. 
+
+### Converting numeric to factor variables for regression analysis 
+
+Determining the class of each variable in the birthweight dataset: 
+
+```{r variable_class}
+# checking class of each variable
+birthweight_data %>% 
+  summarise_all(class)
+```
+All of the variables in the birthweight dataset are numeric. 
+
+Specifically, there are four categorical variables in the dataset which are currently numeric but can be converted to factor variables (based on the homework dataset description): 'babysex', 'frace', 'malform', 'mrace'. 
+
+Determining the distinct categories of each of these four variables:  
+
+```{r variable_categories}
+# babysex
+birthweight_data %>% 
+  distinct(babysex)
+
+# frace
+birthweight_data %>% 
+  distinct(frace)
+
+#malform
+birthweight_data %>% 
+  distinct(malform)
+
+# mrace
+birthweight_data %>% 
+  distinct(mrace)
+```
+
+The 'babysex' variable has two categories (1, 2) which corresponds to the homework data description. The 'frace' variable only has five categories (1, 2, 3, 4, 8) though the homework data description indicates six categories (category 9 indicating 'unknown' race is not included in this dataset). The 'malform' variable has two categories (0, 1) which corresponds to the homework description. The 'mrace' variable only has four categories (1, 2, 3, 4) though the homework data description indicates five categories (category 8 indicating 'other' race is not included in this dataset).  
+
+
 
 ```{r tidy_data}
 birthweight_df = 
@@ -56,10 +104,4 @@ birthweight_df =
   )
 ```
 
-Checking for missing data by identifying any NA values in columns 
-
-```{r check_NA}
-birthweight_df %>% 
-  summarise(across(everything(), ~ sum(is.na(.))))
-```
-There are no NA values, thus no missing data in the birthweight dataset.  
+ 
