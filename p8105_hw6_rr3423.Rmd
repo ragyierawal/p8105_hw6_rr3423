@@ -56,3 +56,10 @@ birthweight_df =
   )
 ```
 
+Checking for missing data by identifying any NA values in columns 
+
+```{r check_NA}
+birthweight_df %>% 
+  summarise(across(everything(), ~ sum(is.na(.))))
+```
+There are no NA values, thus no missing data in the birthweight dataset.  
