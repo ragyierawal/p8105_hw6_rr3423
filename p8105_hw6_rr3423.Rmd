@@ -7,6 +7,7 @@ output: github_document
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(modelr)
+library(mgcv)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -189,3 +190,4 @@ fit_3 %>%
   knitr::kable(digits = 3)
 ```
 
+### Making this comparison in terms of the cross-validated prediction error 
