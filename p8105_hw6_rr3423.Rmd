@@ -163,3 +163,11 @@ birthweight_df %>%
   geom_point()
 ```
 
+### Comparing model to two other models 
+
+Creating model using length at birth and gestational age as predictors (main effects only)
+
+```{r model_2}
+# creating model using blength and gaweeks as predictors 
+model_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
+```
