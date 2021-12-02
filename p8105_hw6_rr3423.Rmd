@@ -51,7 +51,7 @@ Determining the class of each variable in the birthweight dataset:
 ```{r variable_class}
 # checking class of each variable
 birthweight_data %>% 
-  summarise_all(class)
+  map(class)
 ```
 All of the variables in the birthweight dataset are numeric. 
 
