@@ -6,6 +6,7 @@ output: github_document
 
 ```{r setup, include = FALSE}
 library(tidyverse)
+library(modelr)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -143,5 +144,5 @@ fit %>%
   knitr::kable(digits = 3)
 ```
 
-
+### Creating a plot of model residuals against fitted values 
 
