@@ -74,7 +74,7 @@ birthweight_data %>%
   distinct(mrace)
 ```
 
-The babysex variable has two distinct categories, which is consistent with the homework data description. The frace variable only has five distinct categories, which is not consistent with the homework data description (category 9 'unknown' is not included in this dataset). The malform variable has two distinct categories, which is consistent with the homework data description. The mrace variable only has four distinct categories, which is not consistent with the homework data description (category 8 'other' is not included in this dataset). 
+The babysex variable has two distinct categories, which are consistent with the homework data description. The frace variable only has five distinct categories, which are not consistent with the homework data description (category 9 'unknown' is not included in this dataset). The malform variable has two distinct categories, which are consistent with the homework data description. The mrace variable only has four distinct categories, which are not consistent with the homework data description (category 8 'other' is not included in this dataset). 
 
 Converting the numeric variables to factor variables to tidy the data for regression analysis: 
 
@@ -122,7 +122,7 @@ I am hypothesizing that the following variables are factors that underly birthwe
 My proposed regression model for birthweight is: 
 
 ```{r proposed_model}
-
+fit = lm(bwt ~ fincome + gaweeks + momage + mrace + wtgain, data = birthweight_df)
 ```
 
 
