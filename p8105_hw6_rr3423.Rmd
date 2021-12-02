@@ -87,6 +87,24 @@ birthweight_df =
   )
 ```
 
+### Describing the birthweight dataset 
+
+```{r describing_data}
+variables_bw = 
+  birthweight_df %>% 
+  names()
+
+rows_bw = 
+  birthweight_df %>% 
+  nrow()
+
+columns_bw = 
+  birthweight_df %>% 
+  ncol()
+```
+
+The **key variables** in the birthweight dataset are `r variables_bw`. The **number of rows** in the birthweight dataset `r rows_bw`. The **number of columns** in the birthweight dataset is `r columns_bw`. 
+
 ### Proposing a regression model for birthweight 
 
 
