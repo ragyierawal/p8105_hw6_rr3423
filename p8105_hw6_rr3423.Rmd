@@ -61,6 +61,7 @@ There are four numeric categorical variables in the dataset which should be conv
 Checking the distinct categories in each variable: 
 
 ```{r distinct_categories}
+# checking distinct categories for variables
 birthweight_data %>% 
   distinct(babysex)
 
@@ -79,6 +80,7 @@ The babysex variable has two distinct categories, which are consistent with the 
 Converting the numeric variables to factor variables to tidy the data for regression analysis: 
 
 ```{r tidy_data}
+# tidying dataset for regression analysis
 birthweight_df = 
   birthweight_data %>% 
   janitor::clean_names() %>% 
@@ -100,14 +102,17 @@ birthweight_df =
 ### Describing the birthweight dataset 
 
 ```{r describing_data}
+# key variables in dataset
 variables_bw = 
   birthweight_df %>% 
   names()
 
+# number of rows in dataset
 rows_bw = 
   birthweight_df %>% 
   nrow()
 
+# number of columns in dataset
 columns_bw = 
   birthweight_df %>% 
   ncol()
@@ -124,7 +129,19 @@ Family income could affect the amount and quality of food that is available to t
 My proposed regression model for birthweight is: 
 
 ```{r proposed_model}
+# linear regression model
 fit = lm(bwt ~ fincome + gaweeks + momage + mrace + wtgain, data = birthweight_df)
 ```
+
+Tidying the output of the linear regression model: 
+
+```{r tidying_lm}
+# tidying linear model output
+fit %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 3)
+```
+
 
 
