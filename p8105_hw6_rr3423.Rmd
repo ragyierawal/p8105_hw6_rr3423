@@ -107,4 +107,12 @@ The **key variables** in the birthweight dataset are `r variables_bw`. The **num
 
 ### Proposing a regression model for birthweight 
 
+I am hypothesizing that the following variables are factors that underly birthweight, so birthweight might depend on these factors: family income (fincome), gestational age in weeks (gaweeks), mother's age at delivery in years (momage), mother's race (mrace), and mother's weight gain during pregnancy in pounds (wtgain). 
+
+My proposed regression model for birthweight is: 
+
+```{r proposed_model}
+
+```
+
 
