@@ -165,9 +165,27 @@ birthweight_df %>%
 
 ### Comparing model to two other models 
 
-Creating model using length at birth and gestational age as predictors (main effects only)
+Creating and tidying output of model using length at birth and gestational age as predictors (main effects only)
 
-```{r model_2}
+```{r fit_2}
 # creating model using blength and gaweeks as predictors 
-model_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
+fit_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
+
+fit_2 %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 3)
 ```
+
+Creating and tidying output of model using head circumference, length, sex, and all interactions (including the three-way interaction) between these
+
+```{r fit_3}
+fit_3 = lm(bwt ~ bhead + blength + babysex + bhead*blength + bhead*babysex + blength*babysex + bhead*blength*babysex,
+           data = birthweight_df)
+
+fit_3 %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>%  
+  knitr::kable(digits = 3)
+```
+
