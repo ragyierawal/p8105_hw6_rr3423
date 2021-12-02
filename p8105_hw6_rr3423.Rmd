@@ -146,3 +146,20 @@ fit %>%
 
 ### Creating a plot of model residuals against fitted values 
 
+Adding residuals and fitted values to the birthweight dataframe and creating plot  
+
+```{r add_residuals}
+# residuals and fitted values using modelr package
+birthweight_df %>% 
+  add_residuals(fit) %>% 
+  add_predictions(fit) %>% 
+  ggplot(aes(x = bwt, y = resid)) + 
+  geom_point()
+
+birthweight_df %>% 
+  add_residuals(fit) %>% 
+  add_predictions(fit) %>% 
+  ggplot(aes(x = pred, y = resid)) + 
+  geom_point()
+```
+
