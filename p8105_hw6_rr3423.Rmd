@@ -156,7 +156,12 @@ birthweight_df %>%
   add_residuals(fit) %>% 
   add_predictions(fit) %>% 
   ggplot(aes(x = pred, y = resid)) + 
-  geom_point()
+  geom_point() + 
+  labs(
+    title = "Plot of model residuals against fitted values",
+    x = "Predictions",
+    y = "Residuals"
+  )
 ```
 
 ### Comparing model to two other models 
