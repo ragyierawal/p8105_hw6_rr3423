@@ -262,6 +262,27 @@ cv_df %>%
   )
 ```
 
-Model 3 seems to have the best fit because it has the lowest RMSE value and thus has the best prediction accuracy . Model 1 seems to have the worst fit because it has the highest RMSE value. Model 1 might be too complex with too many variables include, which could reduce its prediction accuracy. Model 2 might be too simple, which could also reduce its prediction accuracy. 
+Model 3 seems to have the best fit because it has the lowest RMSE value and thus has the best prediction accuracy . Model 1 seems to have the worst fit because it has the highest RMSE value. Model 1 might be too complex with too many variables included, which could reduce its prediction accuracy. Model 2 might be too simple, which could also reduce its prediction accuracy. 
 
-Based on this cross validation, it appears that head circumference, head length, and baby sex are significant predictors for birthweight.  
+Based on this cross validation, it appears that baby's head circumference at birth, baby's length at birth, and baby's sex are significant predictors for birthweight.  
+
+
+## PROBLEM 2 
+
+### Importing 2017 Central Park weather data 
+
+```{r import_weather_data}
+# downloading weather dataset 
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728"),
+    var = c("PRCP", "TMIN", "TMAX"), 
+    date_min = "2017-01-01",
+    date_max = "2017-12-31") %>%
+  mutate(
+    name = recode(id, USW00094728 = "CentralPark_NY"),
+    tmin = tmin / 10,
+    tmax = tmax / 10) %>%
+  select(name, id, everything())
+```
+
