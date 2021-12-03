@@ -45,11 +45,11 @@ birthweight_data %>%
   knitr::kable()
 ```
 
-There are no NA values, thus no missing data in the birthweight dataset. 
+There are no NA values, thus no missing data in the birthweight dataset
 
 ### Converting numeric to factor or logical variables for regression analysis 
 
-Determining the class of each variable in the birthweight dataset:
+Determining the class of each variable in the birthweight dataset
 
 ```{r variable_class}
 # checking class of each variable
@@ -57,11 +57,11 @@ birthweight_data %>%
   map(class)
 ```
 
-All of the variables in the birthweight dataset are numeric. 
+All of the variables in the birthweight dataset are numeric
 
-There are three numeric categorical variables in the dataset which should be converted to factor variables (based on the homework dataset description): babysex, frace, and mrace. The malform variable should be converted to a logical variable because it is corresponding to a binary choice (0 = absent or 1 = present).   
+There are three numeric categorical variables in the dataset which should be converted to factor variables (based on the homework dataset description): babysex, frace, and mrace. The malform variable should be converted to a logical variable because it is corresponding to a binary choice (0 = absent or 1 = present)   
 
-Checking the distinct categories in each variable: 
+Checking the distinct categories in each variable
 
 ```{r distinct_categories}
 # checking distinct categories for variables
@@ -80,7 +80,7 @@ birthweight_data %>%
 
 The babysex variable has two distinct categories, which are consistent with the homework data description. The frace variable only has five distinct categories, which are not consistent with the homework data description (category 9 'unknown' is not included in this dataset). The malform variable has two distinct categories, which are consistent with the homework data description. The mrace variable only has four distinct categories, which are not consistent with the homework data description (category 8 'other' is not included in this dataset). 
 
-Converting the numeric variables to factor or logical variables to tidy the data for regression analysis: 
+Converting the numeric variables to factor or logical variables to tidy the data for regression analysis
 
 ```{r tidy_data}
 # tidying dataset for regression analysis
@@ -120,7 +120,7 @@ columns_bw =
   ncol()
 ```
 
-The **key variables** in the birthweight dataset are `r variables_bw`. The **number of rows** in the birthweight dataset is `r rows_bw`. The **number of columns** in the birthweight dataset is `r columns_bw`. 
+The **key variables** in the birthweight dataset are `r variables_bw`. The **number of rows** in the birthweight dataset is `r rows_bw`. The **number of columns** in the birthweight dataset is `r columns_bw`.
 
 ### Proposing a regression model for birthweight 
 
@@ -135,7 +135,7 @@ My proposed regression model for birthweight is:
 fit = lm(bwt ~ fincome + gaweeks + momage + mrace + wtgain, data = birthweight_df)
 ```
 
-Tidying the output of the linear regression model: 
+Tidying the output of the linear regression model 
 
 ```{r tidying_lm}
 # tidying linear model output
@@ -154,7 +154,7 @@ In order to further improve my proposed regression model, I will remove the finc
 fit_2 = lm(bwt ~ gaweeks + momage + mrace + wtgain, data = birthweight_df)
 ```
 
-Tidying the output of the improved linear regression model: 
+Tidying the output of the improved linear regression model 
 
 ```{r tidying_lm_2}
 # tidying output of fit_2
@@ -218,7 +218,7 @@ lm_3 %>%
 
 ### Comparing models in terms of the cross-validated prediction error
 
-Comparing models using cross validation: 
+Comparing models using cross validation
 
 ```{r cross_validation}
 # using crossv_mc
@@ -264,9 +264,9 @@ cv_df %>%
   )
 ```
 
-Model 3 seems to have the best fit because it has the lowest RMSE value and thus has the best prediction accuracy . Model 1 seems to have the worst fit because it has the highest RMSE value. Model 1 might be too complex with too many variables included, which could reduce its prediction accuracy. Model 2 might be too simple, which could also reduce its prediction accuracy. 
+Model 3 seems to have the best fit because it has the lowest RMSE value and thus has the best prediction accuracy . Model 1 seems to have the worst fit because it has the highest RMSE value. Model 1 might be too complex with too many variables included, which could reduce its prediction accuracy. Model 2 might be too simple, which could also reduce its prediction accuracy
 
-Based on this cross validation, it appears that baby's head circumference at birth, baby's length at birth, and baby's sex are predictors for birthweight.  
+Based on this cross validation, it appears that baby's head circumference at birth, baby's length at birth, and baby's sex are predictors for birthweight
 
 
 ## PROBLEM 2 
@@ -343,6 +343,7 @@ bootstrap_results =
 Looking at the distribution of $\log(\hat{\beta}_{0} * \hat{\beta}_{1})$
 
 ```{r log_plot}
+# log(B0 * B1) distribution
 bootstrap_results %>% 
   ggplot(aes(x = log)) + 
   geom_density() + 
@@ -352,11 +353,12 @@ bootstrap_results %>%
   )
 ```
 
-The distribution of $\log(\hat{\beta}_{0} * \hat{\beta}_{1})$ appears relatively normal, though there does appear to be a bit of a "shoulder" at the top (the graph is not a smooth curve at the peak) of the graph which could suggest the presence of outliers in the dataset. 
+The distribution of $\log(\hat{\beta}_{0} * \hat{\beta}_{1})$ appears relatively normal with a bell-shaped curve 
 
 Looking at the distribution of $\hat{r}^{2}$: 
 
 ```{r r_plot}
+# r squared distribution
 bootstrap_results %>% 
   ggplot(aes(x = r.squared)) + 
   geom_density() + 
@@ -366,13 +368,14 @@ bootstrap_results %>%
   xlab(expression(r^2))
 ```
 
-The distribution of $\hat{r}^{2}$ appears relatively normal with a bell-shaped curve. 
+The distribution of $\hat{r}^{2}$ appears relatively normal with a bell-shaped curve
 
 ### Getting the 95% confidence intervals for the two quantities
 
 Identifying the 2.5% and 97.5% quantiles to provide a 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ and $\hat{r}^{2}$
 
 ```{r confidence_interval}
+# getting 95% confidence intervals 
 bootstrap_results %>% 
   pivot_longer(
     cols = c("r.squared", "log"),
@@ -387,6 +390,3 @@ bootstrap_results %>%
   ) %>% 
   knitr::kable()
 ```
-
-The 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ is (7.134, 7.845). The 95% confidence interval for $\hat{r}^{2}$ is (0.894, 0.927).   
-
