@@ -385,8 +385,8 @@ bootstrap_results %>%
     ci_lower = quantile(Estimate, 0.025),
     ci_upper = quantile(Estimate, 0.975)
   ) %>% 
-  knitr::kable(digits = 3)
+  knitr::kable()
 ```
 
-The 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ is (7.140, 7.845). The 95% confidence interval for $\hat{r}^{2}$ is (0.894, 0.927).   
+The 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ is (7.134, 7.845). The 95% confidence interval for $\hat{r}^{2}$ is (0.894, 0.927).   
 
