@@ -286,6 +286,20 @@ weather_df =
   select(name, id, everything())
 ```
 
+# Looking at the simple linear regression model
+
+```{r slm}
+# simple linear regression with tmax as response and tmin as predictor
+fit_weather = lm(tmax ~ tmin, data = weather_df)
+
+# tidying the output of the simple linear regression model
+fit_weather %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 3)
+```
+
+
 # Producing estimates of the two quantities using 5000 bootstrap samples 
 
 ```{r bootstrap}
