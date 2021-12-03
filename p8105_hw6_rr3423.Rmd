@@ -156,23 +156,50 @@ birthweight_df %>%
   add_residuals(fit) %>% 
   add_predictions(fit) %>% 
   ggplot(aes(x = pred, y = resid)) + 
-  geom_point() + 
-  labs(
-    title = "Plot of model residuals against fitted values",
-    x = "Predictions",
-    y = "Residuals"
-  )
+  geom_point() 
 ```
+
+The residuals vs. fitted/predicted values plot is used to detect error variance (heteroscedasticity). In the ideal situation, I would like to see a random pattern with residual values that are evenly distributed around 0 with no unusual values that stand out from the random pattern. This plot based on my proposed regression model is relatively good, since there is a pretty random pattern and the residual values are pretty evenly distributed around 0. 
+
+However, I will still try to further improve my proposed regression model. I will do this by only including the factors that were found to be significant from this regression model (gaweeks, momage, mrace, wtgain). 
+
+### Improving proposed regression model 
+
+I will try to improve my proposed regression model by only including the significant factors, which involves removing the fincome factor: 
+
+```{r improved_regression_model}
+fit_2 = lm(bwt ~ gaweeks + momage + mrace + wtgain, data = birthweight_df)
+```
+
+Tidying the output of the improved linear regression model: 
+
+```{r tidying_lm_2}
+fit_2 %>% 
+  broom::tidy() %>% 
+  select(term, estimate, p.value) %>% 
+  knitr::kable(digits = 3)
+```
+
+At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The mracePuerto Rican factor is not significant because the p-value is greater that 0.05, but not as much as it was in my original proposed linear model. 
+
+```{r}
+  #labs(
+   # title = "Plot of model residuals against fitted values",
+    #x = "Predicted/fitted value",
+    #y = "Residual"
+  #)
+```
+
 
 ### Comparing model to two other models 
 
 Creating and tidying output of model using length at birth and gestational age as predictors (main effects only)
 
-```{r fit_2}
+```{r model_2}
 # creating model using blength and gaweeks as predictors 
-fit_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
+model_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
 
-fit_2 %>% 
+model_2 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>% 
   knitr::kable(digits = 3)
@@ -180,11 +207,11 @@ fit_2 %>%
 
 Creating and tidying output of model using head circumference, length, sex, and all interactions (including the three-way interaction) between these
 
-```{r fit_3}
-fit_3 = lm(bwt ~ bhead + blength + babysex + bhead*blength + bhead*babysex + blength*babysex + bhead*blength*babysex,
+```{r model_3}
+model_3 = lm(bwt ~ bhead + blength + babysex + bhead*blength + bhead*babysex + blength*babysex + bhead*blength*babysex,
            data = birthweight_df)
 
-fit_3 %>% 
+model_3 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>%  
   knitr::kable(digits = 3)
