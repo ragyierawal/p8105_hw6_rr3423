@@ -347,4 +347,25 @@ bootstrap_results %>%
   )
 ```
 
+### Getting the 95% confidence interval 
+
+Identifying the 2.5% and 97.5% quantiles to provide a 95% confidence interval for the two quantities 
+
+```{r confidence_interval}
+bootstrap_results %>% 
+  pivot_longer(
+    cols = c("r.squared", "log"),
+    names_to = "Quantity", 
+    values_to = "Estimate"
+  ) %>% 
+  select(Quantity, Estimate) %>% 
+  group_by(Quantity) %>% 
+  summarize(
+    ci_lower = quantile(Estimate, 0.025),
+    ci_upper = quantile(Estimate, 0.975)
+  ) %>% 
+  knitr::kable(digits = 3)
+```
+
+
 
