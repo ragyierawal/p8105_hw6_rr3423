@@ -119,13 +119,13 @@ columns_bw =
   ncol()
 ```
 
-The **key variables** in the birthweight dataset are `r variables_bw`. The **number of rows** in the birthweight dataset `r rows_bw`. The **number of columns** in the birthweight dataset is `r columns_bw`. 
+The **key variables** in the birthweight dataset are `r variables_bw`. The **number of rows** in the birthweight dataset is `r rows_bw`. The **number of columns** in the birthweight dataset is `r columns_bw`. 
 
 ### Proposing a regression model for birthweight 
 
 I am hypothesizing that the following variables are factors that underly birthweight (might be predictors of birthweight): family income (fincome), gestational age in weeks (gaweeks), mother's age at delivery in years (momage), mother's race (mrace), and mother's weight gain during pregnancy in pounds (wtgain). 
 
-Family income could affect the amount and quality of food that is available to the mother during pregnancy, thus affecting the child's birthweight. Gestational age in weeks could affect the child's birthweight because lower gestational age could mean the child is less developed with a smaller birthweight while higher gestational age could mean the child is more developed which a larger birthweight. Mother's age at delivery could affect child's birthweight as well, since older maternal age at delivery could increase risk for lower child birthweight. Mother's race could affect child's birthweight since there could be disparities in birthweight by race. Finally, mother's weight gain during pregnancy could affect child's birthweight since less weight gain for the mother might indicate lower child birthweight while more weight gain might indicate higher child birthweight. 
+Family income could affect the amount and quality of food that is available to the mother during pregnancy, thus affecting the child's birthweight. Gestational age in weeks could affect the child's birthweight because lower gestational age could mean the child is less developed with a smaller birthweight while higher gestational age could mean the child is more developed which a larger birthweight. Mother's age at delivery could affect child's birthweight as well, since older maternal age at delivery could increase risk for lower child birthweight. Mother's race could affect child's birthweight since there could be disparities in birthweight by race. Finally, mother's weight gain during pregnancy could affect child's birthweight since less weight gain for the mother might indicate lower child birthweight while more weight gain for the mother might indicate higher child birthweight. 
 
 My proposed regression model for birthweight is: 
 
@@ -146,7 +146,7 @@ fit %>%
 
 At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The following factors are not significant because they have a p-value greater than 0.05: fincome and mraceAsian.
 
-In order to further improve my proposed regression model. I will remove the fincome factor since it was not significant. Thus, my improved proposed regression model is as follows:
+In order to further improve my proposed regression model, I will remove the fincome factor since it was not significant. Thus, my improved proposed regression model is as follows:
 
 ```{r improved_regression_model}
 # improving linear regression model
@@ -187,7 +187,7 @@ The residuals vs. fitted/predicted values plot is used to detect error variance 
 
 Thus, I will be using this improved regression model as my proposed regression model for birthweight, and I propose that the factors underlying birthweight are gaweeks, momage, mrace, and wtgain. 
 
-### Comparing model to two other models 
+### Comparing my model to two other models 
 
 Creating and tidying output of model using length at birth and gestational age as predictors (main effects only)
 
@@ -195,7 +195,7 @@ Creating and tidying output of model using length at birth and gestational age a
 # creating model using blength and gaweeks as predictors 
 lm_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
 
-# tidying model
+# tidying modeloutput
 lm_2 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>% 
@@ -208,7 +208,7 @@ Creating and tidying output of model using head circumference, length, sex, and 
 # creating model of all interactions between head circumference, length, and sex
 lm_3 = lm(bwt ~ bhead*blength*babysex, data = birthweight_df)
 
-# tidying model
+# tidying model output
 lm_3 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>%  
@@ -264,7 +264,7 @@ cv_df %>%
 
 Model 3 seems to have the best fit because it has the lowest RMSE value and thus has the best prediction accuracy . Model 1 seems to have the worst fit because it has the highest RMSE value. Model 1 might be too complex with too many variables included, which could reduce its prediction accuracy. Model 2 might be too simple, which could also reduce its prediction accuracy. 
 
-Based on this cross validation, it appears that baby's head circumference at birth, baby's length at birth, and baby's sex are significant predictors for birthweight.  
+Based on this cross validation, it appears that baby's head circumference at birth, baby's length at birth, and baby's sex are predictors for birthweight.  
 
 
 ## PROBLEM 2 
