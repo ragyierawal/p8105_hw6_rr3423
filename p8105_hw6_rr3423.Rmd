@@ -336,4 +336,15 @@ bootstrap_results %>%
   )
 ```
 
+Looking at the distribution of R^2: 
+
+```{r r_plot}
+bootstrap_results %>% 
+  ggplot(aes(x = r.squared)) + 
+  geom_density() + 
+  labs(
+    title = "Distribution of R^2"
+  )
+```
+
 
