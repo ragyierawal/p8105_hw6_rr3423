@@ -144,6 +144,8 @@ fit %>%
   knitr::kable(digits = 3)
 ```
 
+At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The following factors are not significant because they have a p-value greater than 0.05: fincome and mraceAsian. 
+
 ### Creating a plot of model residuals against fitted values 
 
 Adding residuals and fitted values to the birthweight dataframe and creating plot  
