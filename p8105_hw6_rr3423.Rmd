@@ -247,6 +247,7 @@ cv_df =
 Creating plot showing the distribution of RMSE values for each candidate model 
 
 ```{r rmse_plot}
+# creating plot of RMSE values for each model
 cv_df %>% 
   select(starts_with("rmse")) %>% 
   pivot_longer(
