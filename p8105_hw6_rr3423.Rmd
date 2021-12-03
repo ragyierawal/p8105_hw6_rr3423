@@ -300,10 +300,10 @@ fit_weather %>%
 ```
 
 
-# Producing estimates of the two quantities using 5000 bootstrap samples 
+### Producing estimates of the two quantities using 5000 bootstrap samples 
 
 ```{r bootstrap}
-# getting 5000 bootstrap samples and analyzing bootstrap samples
+# getting 5000 bootstrap samples and analyzing bootstrap samples to produce estimates of the two quantities
 bootstrap_results = 
   weather_df %>% 
   bootstrap(n = 5000) %>% 
@@ -322,4 +322,18 @@ bootstrap_results =
   ) %>% 
   mutate(log = tmin * `(Intercept)`)
 ```
+
+### Plotting the distribution of estimates 
+
+Looking at the distribution of log(B0 * B1): 
+
+```{r log_plot}
+bootstrap_results %>% 
+  ggplot(aes(x = log)) + 
+  geom_density() + 
+  labs(
+    title = "Distribution of log(B0 * B1)"
+  )
+```
+
 
