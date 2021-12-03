@@ -364,7 +364,7 @@ bootstrap_results %>%
   xlab(expression(r^2))
 ```
 
-The distribution of $\hat{r}^{2}$ appears relatively normal, though there is a slightly heavy left tail extending to low values which could suggest the presence of some outliers in the dataset.
+The distribution of $\hat{r}^{2}$ appears relatively normal with a bell-shaped curve. 
 
 ### Getting the 95% confidence intervals for the two quantities
 
