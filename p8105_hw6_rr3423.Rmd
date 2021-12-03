@@ -299,7 +299,6 @@ fit_weather %>%
   knitr::kable(digits = 3)
 ```
 
-
 ### Producing estimates of the two quantities using 5000 bootstrap samples 
 
 ```{r bootstrap}
@@ -325,31 +324,33 @@ bootstrap_results =
 
 ### Plotting the distribution of estimates 
 
-Looking at the distribution of log(B0 * B1): 
+Looking at the distribution of $\log(\hat{\beta}_{0} * \hat{\beta}_{1})$
 
 ```{r log_plot}
 bootstrap_results %>% 
   ggplot(aes(x = log)) + 
   geom_density() + 
+  xlab(expression(log(hat(beta[0]) %*% hat(beta[1])))) + 
   labs(
     title = "Distribution of log(B0 * B1)"
   )
 ```
 
-Looking at the distribution of R^2: 
+Looking at the distribution of $\hat{r}^{2}$: 
 
 ```{r r_plot}
 bootstrap_results %>% 
   ggplot(aes(x = r.squared)) + 
   geom_density() + 
   labs(
-    title = "Distribution of R^2"
-  )
+    title = "Distribution of r^2" 
+  ) + 
+  xlab(expression(r^2))
 ```
 
-### Getting the 95% confidence interval 
+### Getting the 95% confidence intervals for the two quantities
 
-Identifying the 2.5% and 97.5% quantiles to provide a 95% confidence interval for the two quantities 
+Identifying the 2.5% and 97.5% quantiles to provide a 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ and $\hat{r}^{2}$
 
 ```{r confidence_interval}
 bootstrap_results %>% 
@@ -367,5 +368,5 @@ bootstrap_results %>%
   knitr::kable(digits = 3)
 ```
 
-
+The 95% confidence interval for $\log(\hat{\beta}_{0} * \hat{\beta}_{1} )$ is (7.140, 7.845). The 95% confidence interval for $\hat{r}^{2}$ is (0.894, 0.927).   
 
