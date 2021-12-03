@@ -193,10 +193,10 @@ Creating and tidying output of model using length at birth and gestational age a
 
 ```{r model_2}
 # creating model using blength and gaweeks as predictors 
-model_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
+lm_2 = lm(bwt ~ blength + gaweeks, data = birthweight_df)
 
 # tidying model
-model_2 %>% 
+lm_2 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>% 
   knitr::kable(digits = 3)
@@ -206,10 +206,10 @@ Creating and tidying output of model using head circumference, length, sex, and 
 
 ```{r model_3}
 # creating model of all interactions between head circumference, length, and sex
-model_3 = lm(bwt ~ bhead*blength*babysex, data = birthweight_df)
+lm_3 = lm(bwt ~ bhead*blength*babysex, data = birthweight_df)
 
 # tidying model
-model_3 %>% 
+lm_3 %>% 
   broom::tidy() %>% 
   select(term, estimate, p.value) %>%  
   knitr::kable(digits = 3)
@@ -232,14 +232,14 @@ cv_df =
 cv_df = 
   cv_df %>% 
   mutate(
-    lm_1 = map(train, ~lm(bwt ~ gaweeks + momage + mrace + wtgain, data = .x)),
-    lm_2 = map(train, ~lm(bwt ~ blength + gaweeks, data = .x)),
-    lm_3 = map(train, ~lm(bwt ~ bhead*blength*babysex, data = .x))
+    model_1 = map(train, ~lm(bwt ~ gaweeks + momage + mrace + wtgain, data = .x)),
+    model_2 = map(train, ~lm(bwt ~ blength + gaweeks, data = .x)),
+    model_3 = map(train, ~lm(bwt ~ bhead*blength*babysex, data = .x))
   ) %>% 
   mutate(
-    rmse_lm_1 = map2_dbl(lm_1, test, ~rmse(model = .x, data = .y)),
-    rmse_lm_2 = map2_dbl(lm_2, test, ~rmse(model = .x, data = .y)),
-    rmse_lm_3 = map2_dbl(lm_3, test, ~rmse(model = .x, data = .y))
+    rmse_1 = map2_dbl(model_1, test, ~rmse(model = .x, data = .y)),
+    rmse_2 = map2_dbl(model_2, test, ~rmse(model = .x, data = .y)),
+    rmse_3 = map2_dbl(model_3, test, ~rmse(model = .x, data = .y))
   )
 ```
 
@@ -262,3 +262,4 @@ cv_df %>%
   )
 ```
 
+Model 3 
