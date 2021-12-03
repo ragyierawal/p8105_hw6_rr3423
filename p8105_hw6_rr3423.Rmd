@@ -286,7 +286,7 @@ weather_df =
   select(name, id, everything())
 ```
 
-# Visualizing weather data, particularly tmax and tmin
+### Visualizing weather data, particularly tmax and tmin
 
 ```{r data_plot}
 # making a plot of tmax and tmin to visualize data
@@ -300,7 +300,7 @@ weather_df %>%
 
 Based on this graph, tmax and tmin appear to have a relatively positive linear association
 
-# Looking at the simple linear regression model
+### Looking at the simple linear regression model
 
 ```{r slm}
 # simple linear regression with tmax as response and tmin as predictor
