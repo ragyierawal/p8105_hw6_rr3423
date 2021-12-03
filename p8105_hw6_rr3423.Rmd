@@ -286,6 +286,20 @@ weather_df =
   select(name, id, everything())
 ```
 
+# Visualizing weather data, particularly tmax and tmin
+
+```{r data_plot}
+# making a plot of tmax and tmin to visualize data
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point() + 
+  labs(
+    title = "Tmin vs. Tmax"
+  )
+```
+
+Based on this graph, the relationship between tmax and tmin appears relatively linear
+
 # Looking at the simple linear regression model
 
 ```{r slm}
