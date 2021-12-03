@@ -144,28 +144,9 @@ fit %>%
   knitr::kable(digits = 3)
 ```
 
-At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The following factors are not significant because they have a p-value greater than 0.05: fincome and mraceAsian. 
+At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The following factors are not significant because they have a p-value greater than 0.05: fincome and mraceAsian.
 
-### Creating a plot of model residuals against fitted values 
-
-Adding residuals and fitted values to the birthweight dataframe and creating plot  
-
-```{r add_residuals}
-# residuals and fitted values using modelr package
-birthweight_df %>% 
-  add_residuals(fit) %>% 
-  add_predictions(fit) %>% 
-  ggplot(aes(x = pred, y = resid)) + 
-  geom_point() 
-```
-
-The residuals vs. fitted/predicted values plot is used to detect error variance (heteroscedasticity). In the ideal situation, I would like to see a random pattern with residual values that are evenly distributed around 0 with no unusual values that stand out from the random pattern. This plot based on my proposed regression model is relatively good, since there is a pretty random pattern and the residual values are pretty evenly distributed around 0. 
-
-However, I will still try to further improve my proposed regression model. I will do this by only including the factors that were found to be significant from this regression model (gaweeks, momage, mrace, wtgain). 
-
-### Improving proposed regression model 
-
-I will try to improve my proposed regression model by only including the significant factors, which involves removing the fincome factor: 
+In order to further improve my proposed regression model. I will remove the fincome factor since it was not significant. Thus, my improved proposed regression model is as follows:
 
 ```{r improved_regression_model}
 fit_2 = lm(bwt ~ gaweeks + momage + mrace + wtgain, data = birthweight_df)
@@ -180,16 +161,28 @@ fit_2 %>%
   knitr::kable(digits = 3)
 ```
 
-At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The mracePuerto Rican factor is not significant because the p-value is greater that 0.05, but not as much as it was in my original proposed linear model. 
+At an alpha = 0.05 significance level, the following factors are significant because they have a p-value less than 0.05 in the linear regression model output: gaweeks, momage, mraceBlack, mracePuerto Rican, and wtgain. The mraceAsian factor is not significant because the p-value is greater that 0.05, but not as much as it was in my original proposed linear model.  
 
-```{r}
-  #labs(
-   # title = "Plot of model residuals against fitted values",
-    #x = "Predicted/fitted value",
-    #y = "Residual"
-  #)
+### Creating a plot of model residuals against fitted values 
+
+Adding residuals and fitted values to the birthweight dataframe and creating plot  
+
+```{r plot}
+birthweight_df %>% 
+  add_residuals(fit_2) %>% 
+  add_predictions(fit_2) %>% 
+  ggplot(aes(x = pred, y = resid)) + 
+  geom_point() +
+  labs(
+   title = "Plot of model residuals against fitted values",
+   x = "Predicted/fitted value",
+   y = "Residual"
+  )
 ```
 
+The residuals vs. fitted/predicted values plot is used to detect error variance (heteroscedasticity). In the ideal situation, I would like to see a random pattern with residual values that are evenly distributed around 0 with no unusual values that stand out from the random pattern. This plot based on my proposed regression model is relatively good, since there is a pretty random pattern and the residual values are relatively evenly distributed around 0. 
+
+Thus, I will be using this improved regression model as my proposed regression model for birthweight, and I propose that the factors underlying birthweight are: gaweeks, momage, mrace, and wtgain. 
 
 ### Comparing model to two other models 
 
@@ -216,8 +209,3 @@ model_3 %>%
   select(term, estimate, p.value) %>%  
   knitr::kable(digits = 3)
 ```
-
-### Making this comparison in terms of the cross-validated prediction error 
-
-
-
