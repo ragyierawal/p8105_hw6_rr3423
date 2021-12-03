@@ -286,3 +286,12 @@ weather_df =
   select(name, id, everything())
 ```
 
+# Producing estimates of the two quantities using 5000 bootstrap samples 
+
+```{r bootstrap}
+# getting 5000 bootstrap samples
+boot_straps = 
+  weather_df %>% 
+  bootstrap(n = 5000)
+```
+
