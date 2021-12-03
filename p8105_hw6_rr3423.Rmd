@@ -41,7 +41,8 @@ birthweight_data = read_csv("data/birthweight.csv")
 ```{r check_NA}
 # checking for NA values 
 birthweight_data %>% 
-  summarise(across(everything(), ~ sum(is.na(.))))
+  summarise(across(everything(), ~ sum(is.na(.)))) %>% 
+  knitr::kable()
 ```
 
 There are no NA values, thus no missing data in the birthweight dataset. 
