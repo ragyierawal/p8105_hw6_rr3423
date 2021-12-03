@@ -294,11 +294,11 @@ weather_df %>%
   ggplot(aes(x = tmin, y = tmax)) + 
   geom_point() + 
   labs(
-    title = "Tmin vs. Tmax"
+    title = "Relationship between tmin and tmax"
   )
 ```
 
-Based on this graph, the relationship between tmax and tmin appears relatively linear
+Based on this graph, tmax and tmin appear to have a relatively positive linear association
 
 # Looking at the simple linear regression model
 
@@ -350,6 +350,8 @@ bootstrap_results %>%
   )
 ```
 
+The distribution of $\log(\hat{\beta}_{0} * \hat{\beta}_{1})$ appears relatively normal, though there does appear to be a bit of a "shoulder" at the top (the graph is not a smooth curve at the peak) of the graph which could suggest the presence of outliers in the dataset. 
+
 Looking at the distribution of $\hat{r}^{2}$: 
 
 ```{r r_plot}
@@ -361,6 +363,8 @@ bootstrap_results %>%
   ) + 
   xlab(expression(r^2))
 ```
+
+The distribution of $\hat{r}^{2}$ appears relatively normal, though there is a slightly heavy left tail extending to low values which could suggest the presence of some outliers in the dataset.
 
 ### Getting the 95% confidence intervals for the two quantities
 
