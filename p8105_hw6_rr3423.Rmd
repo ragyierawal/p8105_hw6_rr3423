@@ -58,7 +58,7 @@ birthweight_data %>%
 
 All of the variables in the birthweight dataset are numeric. 
 
-There are four numeric categorical variables in the dataset which should be converted to factor variables (based on the homework dataset description): babysex, frace, malform. and mrace. 
+There are three numeric categorical variables in the dataset which should be converted to factor variables (based on the homework dataset description): babysex, frace, and mrace. The mrace variable should be converted to a logical variable because it is corresponding to a binary choice (0 = absent or 1 = present).   
 
 Checking the distinct categories in each variable: 
 
@@ -79,7 +79,7 @@ birthweight_data %>%
 
 The babysex variable has two distinct categories, which are consistent with the homework data description. The frace variable only has five distinct categories, which are not consistent with the homework data description (category 9 'unknown' is not included in this dataset). The malform variable has two distinct categories, which are consistent with the homework data description. The mrace variable only has four distinct categories, which are not consistent with the homework data description (category 8 'other' is not included in this dataset). 
 
-Converting the numeric variables to factor variables to tidy the data for regression analysis: 
+Converting the numeric variables to factor or logical variables to tidy the data for regression analysis: 
 
 ```{r tidy_data}
 # tidying dataset for regression analysis
@@ -94,7 +94,6 @@ birthweight_df =
     frace = factor(frace, levels = c("White", "Black", "Asian",
                                      "Puerto Rican", "Other")),
     malform = recode(malform, "0" = "absent", "1" = "present"),
-    malform = factor(malform, levels = c("absent", "present")),
     mrace = recode(mrace, "1" = "White", "2" = "Black", 
                    "3" = "Asian", "4" = "Puerto Rican"),
     mrace = factor(mrace, levels = c("White", "Black", "Asian", "Puerto Rican"))
@@ -151,12 +150,6 @@ Adding residuals and fitted values to the birthweight dataframe and creating plo
 
 ```{r add_residuals}
 # residuals and fitted values using modelr package
-birthweight_df %>% 
-  add_residuals(fit) %>% 
-  add_predictions(fit) %>% 
-  ggplot(aes(x = bwt, y = resid)) + 
-  geom_point()
-
 birthweight_df %>% 
   add_residuals(fit) %>% 
   add_predictions(fit) %>% 
